@@ -1,8 +1,8 @@
 # Payroll Generator BBVA
 
-Desktop application built with Electron to generate BBVA-format PRN files for payroll disbursement (Dispersión de Nómina).
+Desktop application built with Electron to generate BBVA-format TXT files for payroll disbursement (Dispersión de Nómina).
 
-The app reads a CSV file with employee payment data and converts it into a fixed-width text file (`.prn`) following BBVA's layout specification — 108 characters per line.
+The app reads a CSV file with employee payment data and converts it into a fixed-width text file (`.txt`) following BBVA's layout specification — 108 characters per line. Accented characters (á, é, í, ó, ú, ñ) are automatically replaced with their ASCII equivalents for BBVA compatibility.
 
 ## Getting Started
 
@@ -26,8 +26,8 @@ npm start
 
 1. Click **Cargar CSV** to select your CSV file.
 2. Review the loaded data in the table.
-3. Click **Vista Previa** to preview the formatted PRN output.
-4. Click **Generar Archivo PRN** to save the file. You'll be prompted to choose the location and filename.
+3. Click **Vista Previa** to preview the formatted output.
+4. Click **Generar Archivo TXT** to save the file. You'll be prompted to choose the location and filename.
 
 Click **Instrucciones** in the header for a detailed in-app help guide (in Spanish).
 
@@ -50,9 +50,9 @@ GARCÍA LÓPEZ MARÍA,$4652.01,0123456789,GALM850101AB1
 PEÑA NIÑO JOSÉ,$12589.00,9901093870,
 ```
 
-## PRN Output Format
+## TXT Output Format
 
-Each line is exactly **108 characters** following BBVA's layout:
+Each line is exactly **108 characters** (108 bytes in latin1 encoding) following BBVA's layout:
 
 | Position | Field | Length | Description |
 |----------|-------|--------|-------------|
@@ -65,7 +65,7 @@ Each line is exactly **108 characters** following BBVA's layout:
 | 103–105 | Banco destino | 3 | Always `001` |
 | 106–108 | Plaza destino | 3 | Always `001` |
 
-The file uses CRLF line endings and UTF-8 encoding. The full layout specification is available in `docs/layout_instructions.pdf`.
+The file uses CRLF line endings and latin1 encoding. Accented characters in names (ñ, á, é, í, ó, ú) are replaced with their ASCII equivalents (n, a, e, i, o, u) to ensure each character is exactly 1 byte. The full layout specification is available in `docs/layout_instructions.pdf`.
 
 ## License
 

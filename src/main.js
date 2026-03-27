@@ -34,11 +34,10 @@ ipcMain.handle('dialog:openCsv', async () => {
 
 ipcMain.handle('dialog:savePrn', async (event, prnContent) => {
   const { canceled, filePath } = await dialog.showSaveDialog({
-    title: 'Guardar archivo PRN',
+    title: 'Guardar archivo TXT',
     defaultPath: 'nomina.txt',
     filters: [
       { name: 'Texto', extensions: ['txt'] },
-      { name: 'PRN', extensions: ['prn'] },
     ],
   });
 

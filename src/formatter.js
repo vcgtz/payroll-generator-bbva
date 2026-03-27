@@ -1,4 +1,13 @@
 ((exports) => {
+  const stripAccents = (str) => str
+    .replace(/[áàäâ]/gi, (c) => c === c.toUpperCase() ? 'A' : 'a')
+    .replace(/[éèëê]/gi, (c) => c === c.toUpperCase() ? 'E' : 'e')
+    .replace(/[íìïî]/gi, (c) => c === c.toUpperCase() ? 'I' : 'i')
+    .replace(/[óòöô]/gi, (c) => c === c.toUpperCase() ? 'O' : 'o')
+    .replace(/[úùüû]/gi, (c) => c === c.toUpperCase() ? 'U' : 'u')
+    .replace(/ñ/g, 'n')
+    .replace(/Ñ/g, 'N');
+
   const parseImporte = (value) => {
     const cleaned = value.replace(/[$,\s]/g, '');
     const num = parseFloat(cleaned);
@@ -20,7 +29,7 @@
     const cuentaField = cuenta.substring(0, 20).padEnd(20, ' ');
     const centavos = parseImporte(importe);
     const importeField = String(centavos).padStart(15, '0');
-    const nombreField = nombre.substring(0, 40).padEnd(40, ' ');
+    const nombreField = stripAccents(nombre).substring(0, 40).padEnd(40, ' ');
     const banco = '001';
     const plaza = '001';
 

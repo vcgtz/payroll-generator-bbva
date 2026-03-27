@@ -5,11 +5,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 - **Run the app**: `npm start` (launches Electron)
-- No test suite, linter, or build step configured
+- **Build Windows installer**: `npm run dist:win` (requires electron-builder)
+- No test suite or linter configured
 
 ## Architecture
 
-Electron desktop app that converts CSV payroll data into BBVA-format PRN files (fixed-width, 108 chars/line) for "Dispersión de Nómina".
+Electron desktop app that converts CSV payroll data into BBVA-format TXT files (fixed-width, 108 chars/line) for "Dispersión de Nómina".
 
 **Process model (3 files):**
 - `src/main.js` — Main process: window creation, IPC handlers for file open/save dialogs
@@ -22,9 +23,9 @@ Electron desktop app that converts CSV payroll data into BBVA-format PRN files (
 **UI:**
 - `src/index.html` — Single HTML file with embedded CSS. All in Spanish. BBVA brand color: `#004481`.
 
-**Data flow:** CSV file → PapaParse → table display → `Formatter.formatAllRecords()` → PRN preview/file save
+**Data flow:** CSV file → PapaParse → table display → `Formatter.formatAllRecords()` → TXT preview/file save
 
-## PRN Layout (108 chars/line)
+## TXT Layout (108 chars/line)
 
 | Pos | Len | Field | Source |
 |-----|-----|-------|--------|
@@ -37,7 +38,7 @@ Electron desktop app that converts CSV payroll data into BBVA-format PRN files (
 | 103-105 | 3 | Banco destino | Always `001` |
 | 106-108 | 3 | Plaza destino | Always `001` |
 
-CRLF line endings. UTF-8 encoding. File must end with a newline. Full spec in `docs/layout_instructions.pdf`.
+CRLF line endings. Latin1 encoding. Accented characters (ñ, á, é, í, ó, ú) are stripped to ASCII equivalents in the nombre field. File must end with a newline. Full spec in `docs/layout_instructions.pdf`.
 
 ## CSV Input
 

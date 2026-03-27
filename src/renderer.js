@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const prnText = Formatter.formatAllRecords(parsedRows);
       const saved = await window.electronAPI.savePrn(prnText);
       if (saved) {
-        showStatus('Archivo PRN guardado exitosamente.');
+        showStatus('Archivo TXT guardado exitosamente.');
       }
     } catch (err) {
       showStatus('Error al generar archivo: ' + err.message, true);
