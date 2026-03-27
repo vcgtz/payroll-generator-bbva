@@ -35,10 +35,10 @@ ipcMain.handle('dialog:openCsv', async () => {
 ipcMain.handle('dialog:savePrn', async (event, prnContent) => {
   const { canceled, filePath } = await dialog.showSaveDialog({
     title: 'Guardar archivo PRN',
-    defaultPath: 'nomina.prn',
+    defaultPath: 'nomina.txt',
     filters: [
-      { name: 'PRN', extensions: ['prn'] },
       { name: 'Texto', extensions: ['txt'] },
+      { name: 'PRN', extensions: ['prn'] },
     ],
   });
 
@@ -46,7 +46,7 @@ ipcMain.handle('dialog:savePrn', async (event, prnContent) => {
     return false;
   }
 
-  fs.writeFileSync(filePath, prnContent, 'utf-8');
+  fs.writeFileSync(filePath, prnContent, 'latin1');
   return true;
 });
 
