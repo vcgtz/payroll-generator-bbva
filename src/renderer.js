@@ -8,8 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewSection = document.getElementById('previewSection');
   const previewContent = document.getElementById('previewContent');
   const statusMsg = document.getElementById('statusMsg');
+  const helpModal = document.getElementById('helpModal');
+  const btnHelp = document.getElementById('btnHelp');
+  const btnCloseHelp = document.getElementById('btnCloseHelp');
 
   let parsedRows = [];
+
+  btnHelp.addEventListener('click', () => helpModal.classList.remove('hidden'));
+  btnCloseHelp.addEventListener('click', () => helpModal.classList.add('hidden'));
+  helpModal.addEventListener('click', (e) => {
+    if (e.target === helpModal) helpModal.classList.add('hidden');
+  });
 
   function showStatus(msg, isError) {
     statusMsg.textContent = msg;
