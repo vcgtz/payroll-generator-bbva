@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'">
+  <title>Dispersi&oacute;n de N&oacute;mina BBVA</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f6fa;
+      color: #1a1a2e;
+      padding: 20px;
+    }
+
+    .header {
+      background: #004481;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header h1 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .file-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .file-name {
+      color: #666;
+      font-size: 13px;
+    }
+
+    button {
+      background: #004481;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    button:hover { background: #003366; }
+    button:disabled { background: #999; cursor: not-allowed; }
+
+    .btn-secondary {
+      background: #fff;
+      color: #004481;
+      border: 1px solid #004481;
+    }
+
+    .btn-secondary:hover { background: #e8f0fe; }
+    .btn-secondary:disabled { background: #eee; color: #999; border-color: #ccc; }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .table-wrapper {
+      max-height: 250px;
+      overflow: auto;
+      margin-top: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      background: #004481;
+      color: #fff;
+      padding: 8px 10px;
+      text-align: left;
+      position: sticky;
+      top: 0;
+    }
+
+    td {
+      padding: 6px 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    tr:nth-child(even) { background: #f9fafb; }
+
+    .preview-wrapper {
+      max-height: 200px;
+      overflow: auto;
+      margin-top: 12px;
+    }
+
+    pre {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      padding: 12px;
+      border-radius: 6px;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .status {
+      font-size: 12px;
+      margin-top: 8px;
+      color: #28a745;
+    }
+
+    .status.error { color: #dc3545; }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Dispersi&oacute;n de N&oacute;mina BBVA</h1>
+  </div>
+
+  <div class="section">
+    <div class="file-row">
+      <button id="btnLoadCsv">Cargar CSV</button>
+      <span class="file-name" id="fileName">Ning&uacute;n archivo seleccionado</span>
+    </div>
+  </div>
+
+  <div class="section hidden" id="tableSection">
+    <div class="actions">
+      <button class="btn-secondary" id="btnPreview" disabled>Vista Previa</button>
+      <button id="btnGenerate" disabled>Generar Archivo PRN</button>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Importe</th>
+            <th>Cuenta</th>
+            <th>RFC</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div id="statusMsg" class="status hidden"></div>
+  </div>
+
+  <div class="section hidden" id="previewSection">
+    <h3 style="font-size:14px; margin-bottom:8px;">Vista Previa PRN</h3>
+    <div class="preview-wrapper">
+      <pre id="previewContent"></pre>
+    </div>
+  </div>
+
+  <script src="../node_modules/papaparse/papaparse.min.js"></script>
+  <script src="./formatter.js"></script>
+  <script src="./renderer.js"></script>
+</body>
+</html>
